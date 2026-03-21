@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #f5f3ff;
+  --color-primary-100: #ede9fe;
+  --color-primary-500: #8b5cf6;
+  --color-primary-600: #7c3aed;
+  --color-primary-700: #6d28d9;
+  
+  --color-accent-400: #2dd4bf;
+  --color-accent-500: #14b8a6;
+  --color-accent-600: #0d9488;
+  
+  --color-bg-dark: #0f111a;
+  --color-panel: #1a1d2d;
+  
+  --font-sans: 'Outfit', 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-[#0b0c10] text-slate-300 antialiased overflow-x-hidden;
+    /* Soft glowing background effect */
+    background-image: 
+      radial-gradient(circle at 15% 50%, rgba(124, 58, 237, 0.08), transparent 25%),
+      radial-gradient(circle at 85% 30%, rgba(20, 184, 166, 0.08), transparent 25%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-[#151724]/80 backdrop-blur-xl border border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.2)] rounded-2xl;
+  }
+  .neon-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400 font-extrabold;
+  }
+  .neon-button {
+    @apply relative overflow-hidden font-bold rounded-lg px-6 py-2.5 bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-[0_0_15px_rgba(124,58,237,0.4)] hover:shadow-[0_0_25px_rgba(45,212,191,0.6)] hover:from-primary-500 hover:to-accent-400 transition-all duration-300;
+  }
+  .input-futuristic {
+    @apply block w-full rounded-md border border-white/10 bg-[#0f111a] px-4 py-3 text-white placeholder-slate-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none transition-colors;
+  }
+  .sidebar-link {
+    @apply flex items-center px-4 py-3 my-1 rounded-xl text-slate-400 font-medium hover:bg-white/5 hover:text-white transition-all group;
+  }
+  .sidebar-link.active {
+    @apply bg-primary-600/10 text-primary-400;
+  }
+}

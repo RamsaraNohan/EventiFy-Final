@@ -1,0 +1,14 @@
+{
+  "name": "eventify-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm -w run --parallel dev",
+    "build": "pnpm -w run -r build",
+    "lint": "pnpm -w run -r lint",
+    "test": "pnpm -w run -r test"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
