@@ -4,6 +4,8 @@ import './index.css';
 import { AppRouter } from './AppRouter';
 import { useAuthStore } from './lib/auth';
 
+import { ErrorBoundary } from './components/ErrorBoundary';
+
 const App = () => {
   const checkAuth = useAuthStore((state) => state.checkAuth);
 
@@ -16,6 +18,8 @@ const App = () => {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </StrictMode>,
 );

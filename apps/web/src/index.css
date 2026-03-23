@@ -1,48 +1,90 @@
 @import "tailwindcss";
 
+:root {
+  --surface-page: #F8FAFC;
+  --surface-card: #FFFFFF;
+  --surface-muted: #F1F5F9;
+  --border-main: #F1F5F9;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --brand-solid: #7C3AED;
+}
+
+[data-theme='dark'] {
+  --surface-page: #020617;
+  --surface-card: #0F172A;
+  --surface-muted: #1E293B;
+  --border-main: #1E293B;
+  --text-main: #F1F5F9;
+  --text-muted: #94A3B8;
+  --brand-solid: #8B5CF6;
+}
+
 @theme {
-  --color-primary-50: #f5f3ff;
-  --color-primary-100: #ede9fe;
-  --color-primary-500: #8b5cf6;
-  --color-primary-600: #7c3aed;
-  --color-primary-700: #6d28d9;
-  
-  --color-accent-400: #2dd4bf;
-  --color-accent-500: #14b8a6;
-  --color-accent-600: #0d9488;
-  
-  --color-bg-dark: #0f111a;
-  --color-panel: #1a1d2d;
+  --color-brand-600: var(--brand-solid);
+  --color-surface-page: var(--surface-page);
+  --color-surface-card: var(--surface-card);
+  --color-surface-muted: var(--surface-muted);
+  --color-border-main: var(--border-main);
+  --color-text-main: var(--text-main);
+  --color-text-muted: var(--text-muted);
   
   --font-sans: 'Outfit', 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
 
+
 @layer base {
   body {
-    @apply bg-[#0b0c10] text-slate-300 antialiased overflow-x-hidden;
-    /* Soft glowing background effect */
-    background-image: 
-      radial-gradient(circle at 15% 50%, rgba(124, 58, 237, 0.08), transparent 25%),
-      radial-gradient(circle at 85% 30%, rgba(20, 184, 166, 0.08), transparent 25%);
-    background-attachment: fixed;
+    @apply bg-surface-page text-slate-600 antialiased overflow-x-hidden;
+    background-image: none;
   }
 }
 
 @layer components {
   .glass-panel {
-    @apply bg-[#151724]/80 backdrop-blur-xl border border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.2)] rounded-2xl;
+    @apply bg-white/40 backdrop-blur-xl border border-gray-100 shadow-[0_8px_32px_rgba(0,0,0,0.05)] rounded-[2rem];
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-  .neon-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-primary-400 to-accent-400 font-extrabold;
+
+  .glass-panel:hover {
+    @apply bg-white/60 border-brand-100 shadow-[0_20px_50px_rgba(0,0,0,0.08)] -translate-y-1;
   }
-  .neon-button {
-    @apply relative overflow-hidden font-bold rounded-lg px-6 py-2.5 bg-gradient-to-r from-primary-600 to-accent-500 text-white shadow-[0_0_15px_rgba(124,58,237,0.4)] hover:shadow-[0_0_25px_rgba(45,212,191,0.6)] hover:from-primary-500 hover:to-accent-400 transition-all duration-300;
+
+  .glass-input {
+    @apply bg-gray-50/50 backdrop-blur-sm border border-gray-100 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-brand-500 focus:bg-white focus:ring-4 focus:ring-brand-500/5 transition-all;
   }
-  .input-futuristic {
-    @apply block w-full rounded-md border border-white/10 bg-[#0f111a] px-4 py-3 text-white placeholder-slate-500 focus:border-primary-500 focus:ring-1 focus:ring-primary-500 focus:outline-none transition-colors;
+
+  .btn-primary {
+    @apply bg-brand-600 hover:bg-brand-700 text-white font-black px-8 py-4 rounded-2xl transition-all shadow-xl shadow-brand-100 active:scale-95 flex items-center justify-center gap-2 text-xs uppercase tracking-widest;
   }
+
+  .btn-secondary {
+    @apply bg-white border border-gray-100 text-gray-400 hover:text-brand-600 hover:border-brand-100 font-black px-8 py-4 rounded-2xl transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2 text-xs uppercase tracking-widest;
+  }
+
+  /* Premium Animations */
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse-glow {
+    0% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0.4); }
+    70% { box-shadow: 0 0 0 15px rgba(33, 150, 243, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(33, 150, 243, 0); }
+  }
+
+  .glow-primary {
+    animation: pulse-glow 2s infinite;
+  }
+
   .sidebar-link {
-    @apply flex items-center px-4 py-3 my-1 rounded-xl text-slate-400 font-medium hover:bg-white/5 hover:text-white transition-all group;
+    @apply flex items-center px-4 py-3 my-1 rounded-xl text-slate-400 font-medium hover:bg-white/5 hover:text-white transition-all;
   }
   .sidebar-link.active {
     @apply bg-primary-600/10 text-primary-400;

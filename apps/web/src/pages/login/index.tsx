@@ -22,62 +22,125 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center mb-6">
-          <div className="w-16 h-16 rounded-full border border-primary-500/30 flex items-center justify-center bg-primary-500/10 shadow-[0_0_20px_rgba(20,184,166,0.3)]">
-            <span className="neon-text text-3xl">E</span>
+    <div className="min-h-screen flex">
+      {/* LEFT PANEL — brand side (hidden on mobile) */}
+      <div className="hidden lg:flex lg:w-1/2 xl:w-[55%] relative overflow-hidden"
+        style={{ background: 'linear-gradient(135deg, #4C1D95 0%, #7C3AED 50%, #A78BFA 100%)' }}>
+
+        {/* Decorative circles */}
+        <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-white/5" />
+        <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-white/5" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full bg-white/5" />
+
+        {/* Content */}
+        <div className="relative z-10 flex flex-col justify-between p-12 w-full">
+          {/* Logo */}
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+              <span className="text-white font-black text-lg">E</span>
+            </div>
+            <span className="text-white font-bold text-xl tracking-tight">EventiFy</span>
+          </div>
+
+          {/* Hero text */}
+          <div>
+            <h1 className="text-4xl xl:text-5xl font-black text-white leading-tight mb-4">
+              Plan your perfect<br />
+              <span className="text-purple-200">Sri Lankan</span><br />
+              event.
+            </h1>
+            <p className="text-purple-200 text-base leading-relaxed max-w-sm">
+              Connect with 25+ verified vendors, manage bookings, and bring your vision to life — all in one place.
+            </p>
+          </div>
+
+          {/* Stats row */}
+          <div className="flex gap-8">
+            {[
+              { value: '25+', label: 'Verified vendors' },
+              { value: '22', label: 'Categories' },
+              { value: '12', label: 'Cities' },
+            ].map(stat => (
+              <div key={stat.label}>
+                <p className="text-2xl font-black text-white">{stat.value}</p>
+                <p className="text-purple-300 text-xs font-medium">{stat.label}</p>
+              </div>
+            ))}
           </div>
         </div>
-        <h2 className="text-center text-4xl font-extrabold tracking-tight text-white mb-2">
-          Welcome Back
-        </h2>
-        <p className="text-center text-slate-400">Enter the portal to continue</p>
       </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="glass-panel py-8 px-4 sm:rounded-2xl sm:px-10">
-          <form className="space-y-6" onSubmit={handleSubmit}>
-            {error && <div className="p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-400 text-sm text-center font-medium backdrop-blur-sm shadow-[0_0_10px_rgba(239,68,68,0.2)]">{error}</div>}
-            <div>
-              <label className="block text-sm font-medium text-slate-300">Email address</label>
-              <div className="mt-1">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="input-futuristic"
-                />
-              </div>
-            </div>
+      {/* RIGHT PANEL — form side */}
+      <div className="flex-1 flex items-center justify-center bg-gray-50 p-6">
+        <div className="w-full max-w-md">
 
-            <div>
-              <label className="block text-sm font-medium text-slate-300">Password</label>
-              <div className="mt-1">
-                <input
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="input-futuristic"
-                />
-              </div>
+          {/* Mobile logo (only shows on small screens) */}
+          <div className="flex items-center gap-2 mb-8 lg:hidden">
+            <div className="w-8 h-8 bg-purple-600 rounded-xl flex items-center justify-center">
+              <span className="text-white font-black text-sm">E</span>
             </div>
+            <span className="text-gray-900 font-bold text-lg">EventiFy</span>
+          </div>
 
-            <div className="pt-2">
-              <button
-                type="submit"
-                className="w-full neon-button"
-              >
-                ACCESS GRANTED
-              </button>
-            </div>
-            
-            <div className="mt-6 text-center text-sm text-slate-400">
-              New to EventiFy? <Link to="/register" className="text-primary-400 font-bold hover:text-primary-300 transition-colors">Initialize account</Link>
-            </div>
-          </form>
+          {/* Form card */}
+          <div className="bg-white rounded-3xl shadow-xl shadow-gray-100 border border-gray-100 p-8">
+            {/* PAGE HEADING */}
+            <h2 className="text-2xl font-black text-gray-900 mb-1">Welcome back</h2>
+            <p className="text-gray-400 text-sm mb-7">Sign in to your EventiFy account</p>
+
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {error && <div className="p-3 bg-red-500/10 border border-red-500/50 rounded-lg text-red-500 text-sm text-center font-medium">{error}</div>}
+              <div>
+                <label className="block text-xs font-black text-gray-400 uppercase tracking-widest ml-1 mb-1.5">Email address</label>
+                <div className="mt-1">
+                  <input
+                    type="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-3.5 text-gray-900 font-bold focus:outline-none focus:bg-white focus:border-purple-500 transition-all"
+                    placeholder="name@company.com"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between items-center">
+                  <label className="block text-xs font-black text-gray-400 uppercase tracking-widest ml-1 mb-1.5">Password</label>
+                  <div className="text-sm">
+                    <Link to="/forgot-password" title="Forgot Password" className="text-xs font-bold text-purple-600 hover:text-purple-500 transition-colors">
+                      Forgot?
+                    </Link>
+                  </div>
+                </div>
+                <div className="mt-1">
+                  <input
+                    type="password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full bg-gray-50 border border-gray-200 rounded-2xl px-5 py-3.5 text-gray-900 font-bold focus:outline-none focus:bg-white focus:border-purple-500 transition-all"
+                    placeholder="••••••••"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  type="submit"
+                  className="w-full py-4 bg-gray-900 hover:bg-black text-white rounded-2xl font-black text-sm uppercase tracking-[0.2em] transition-all active:scale-95 shadow-xl shadow-gray-200"
+                >
+                  Sign In
+                </button>
+              </div>
+            </form>
+          </div>
+
+          {/* Footer link */}
+          <p className="text-center text-sm text-gray-400 mt-5">
+            Don't have an account?{' '}
+            <Link to="/register" className="text-purple-600 font-semibold hover:underline">Sign up free</Link>
+          </p>
         </div>
       </div>
     </div>
