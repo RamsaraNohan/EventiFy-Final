@@ -7,6 +7,8 @@ const STEPS = [
   { label: 'Completed',    key: 'done' },
 ];
 
+
+
 const STATUS_STEP: Record<string, number> = {
   PLANNING: 0,
   VENDORS_PENDING: 1,

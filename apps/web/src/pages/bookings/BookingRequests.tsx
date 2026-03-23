@@ -11,6 +11,8 @@ export default function BookingRequests() {
     fetchRequests();
   }, []);
 
+  
+
   const fetchRequests = async () => {
     try {
       const res = await api.get('/events/vendor/mine');

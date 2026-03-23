@@ -10,6 +10,8 @@ import { Avatar } from '../../components/ui/Avatar';
 import { StatusBadge } from '../../components/ui/StatusBadge';
 import { fmtLKR } from '../../utils/dateFormat';
 
+
+
 function BudgetBar({ spent, total }: { spent: number, total: number }) {
   const pct = Math.min(Math.round((spent / (total || 1)) * 100), 100);
   const isOver = spent > total && total > 0;

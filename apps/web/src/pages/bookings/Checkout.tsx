@@ -11,6 +11,8 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(true);
   const type = searchParams.get('type') || 'booking';
 
+  
+
   useEffect(() => {
     const endpoint = type === 'event-vendor' 
       ? `/payments/checkout/event-vendor/${id}`
