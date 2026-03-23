@@ -13,6 +13,10 @@ export default function MyBookings() {
     fetchBookings();
   }, []);
 
+  
+
+
+
   const fetchBookings = async () => {
     try {
       const res = await api.get('/bookings/client');

@@ -6,6 +6,8 @@ import { useAuthStore } from '../../lib/auth';
 import { getSocket } from '../../lib/socket';
 import { motion, AnimatePresence } from 'framer-motion';
 
+
+
 interface Transaction {
   id: string;
   amount: number;

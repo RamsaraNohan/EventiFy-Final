@@ -7,6 +7,8 @@ import { getSocket } from '../../lib/socket';
 import EventStepper from '../../components/ui/EventStepper';
 import { StatusBadge } from '../../components/ui/StatusBadge';
 
+
+
 type EventStatus = 'PLANNING' | 'VENDORS_PENDING' | 'PAYMENT_PENDING' | 'ONGOING' | 'EVENT_SOON' | 'COMPLETED' | 'PAYMENT_OVERDUE' | 'FULLY_PAID';
 
 interface EventItem {

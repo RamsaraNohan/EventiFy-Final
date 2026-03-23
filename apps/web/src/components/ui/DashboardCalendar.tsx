@@ -12,6 +12,8 @@ export function DashboardCalendar({ events, month, year }: DashboardCalendarProp
 
   const headers = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
+  
+
   // Group events by day number
   const byDay: Record<number, any[]> = {};
   events.forEach((ev: any) => {
