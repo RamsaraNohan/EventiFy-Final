@@ -38,8 +38,16 @@ Booking.init(
       allowNull: false,
     },
     status: {
-      type: DataTypes.ENUM('PENDING', 'ACCEPTED', 'REJECTED', 'CANCELLED'),
+      type: DataTypes.ENUM('PENDING', 'ACCEPTED', 'CONFIRMED', 'REJECTED', 'CANCELLED'),
       defaultValue: 'PENDING',
+    },
+    depositAmount: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: true,
+    },
+    totalAmount: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: true,
     },
   },
   {
