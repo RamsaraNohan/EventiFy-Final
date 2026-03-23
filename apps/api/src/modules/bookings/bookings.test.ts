@@ -1,10 +1,10 @@
 import request from 'supertest';
 import app from '../../app';
 import { sequelize } from '../../database/sequelize';
-import Vendor from '../../database/models/vendor.model';
-import User from '../../database/models/user.model';
-import Booking from '../../database/models/booking.model';
-import Notification from '../../database/models/notification.model';
+import { Vendor } from '../../database/models/vendor.model';
+import { User } from '../../database/models/user.model';
+import { Booking } from '../../database/models/booking.model';
+import { Notification } from '../../database/models/notification.model';
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'test_secret';

@@ -8,9 +8,13 @@ export let io: Server;
 export function initSocket(server: http.Server) {
   io = new Server(server, {
     cors: {
-      origin: '*', // For dev
+      origin: ['http://localhost:5173', 'http://127.0.0.1:5173'],
+      methods: ['GET', 'POST'],
       credentials: true
-    }
+    },
+    pingTimeout: 60000,
+    pingInterval: 25000,
+    allowEIO3: true
   });
 
   io.use((socket, next) => {
@@ -35,6 +39,17 @@ export function initSocket(server: http.Server) {
 
     socket.on('conversation:join', (conversationId) => {
       socket.join(`conversation_${conversationId}`);
+    });
+
+    socket.on('conversation:leave', (conversationId) => {
+      socket.leave(`conversation_${conversationId}`);
+    });
+
+    socket.on('message:typing', ({ conversationId }) => {
+      socket.to(`conversation_${conversationId}`).emit('message:typing', { 
+        userId, 
+        conversationId 
+      });
     });
 
     socket.on('disconnect', () => {

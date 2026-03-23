@@ -6,7 +6,9 @@ interface User {
   id: string;
   email: string;
   name: string;
-  role: 'CLIENT' | 'VENDOR' | 'ADMIN';
+  role: 'CLIENT' | 'VENDOR_OWNER' | 'ADMIN';
+  avatarUrl?: string;
+  phone?: string;
 }
 
 interface AuthState {
@@ -14,6 +16,7 @@ interface AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
   login: (userData: User, token?: string) => void;
+  setUser: (user: User) => void;
   logout: () => void;
   checkAuth: () => Promise<void>;
 }
@@ -22,6 +25,8 @@ export const useAuthStore = create<AuthState>((set) => ({
   user: null,
   isAuthenticated: false,
   isLoading: true,
+  
+  setUser: (user) => set({ user }),
   
   login: (user, token) => {
     set({ user, isAuthenticated: true });

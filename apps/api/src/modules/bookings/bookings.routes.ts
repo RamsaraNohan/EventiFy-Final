@@ -7,5 +7,8 @@ const router = Router();
 router.use(requireAuth);
 
 router.post('/', BookingsController.createBooking);
+router.get('/client', BookingsController.getClientBookings);
+router.get('/vendor', BookingsController.getVendorBookings);
+router.patch('/:id/status', BookingsController.updateBookingStatus);
 
 export default router;

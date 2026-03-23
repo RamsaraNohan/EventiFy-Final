@@ -5,7 +5,8 @@ import { User } from './user.model';
 export class Notification extends Model {
   declare id: string;
   declare userId: string;
-  declare type: 'BOOKING_REQUEST' | 'BOOKING_UPDATE' | 'NEW_MESSAGE' | 'SYSTEM';
+  declare type: 'BOOKING_REQUEST' | 'BOOKING_UPDATE' | 'NEW_MESSAGE' | 'SYSTEM'
+    | 'NEW_BOOKING_REQUEST' | 'VENDOR_APPROVED' | 'NEW_TASK' | 'TASK_UPDATED' | 'PAYMENT_REQUIRED';
   declare title: string;
   declare body: string;
   declare href: string;
@@ -25,7 +26,10 @@ Notification.init(
       allowNull: false,
     },
     type: {
-      type: DataTypes.ENUM('BOOKING_REQUEST', 'BOOKING_UPDATE', 'NEW_MESSAGE', 'SYSTEM'),
+      type: DataTypes.ENUM(
+        'BOOKING_REQUEST', 'BOOKING_UPDATE', 'NEW_MESSAGE', 'SYSTEM',
+        'NEW_BOOKING_REQUEST', 'VENDOR_APPROVED', 'NEW_TASK', 'TASK_UPDATED', 'PAYMENT_REQUIRED'
+      ),
       allowNull: false,
     },
     title: {

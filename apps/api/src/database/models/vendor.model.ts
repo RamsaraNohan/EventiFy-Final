@@ -11,6 +11,14 @@ export class Vendor extends Model {
   declare basePrice: number;
   declare city: string;
   declare approved: boolean;
+  declare promotions: string | null;
+  declare gallery: string[] | null;
+  declare services: string[] | null;
+  declare bankName: string | null;
+  declare bankCode: string | null;
+  declare branchCode: string | null;
+  declare accountName: string | null;
+  declare accountNumber: string | null;
   declare readonly createdAt: Date;
   declare readonly updatedAt: Date;
 }
@@ -50,6 +58,23 @@ Vendor.init(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    promotions: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    gallery: {
+      type: DataTypes.JSON,
+      allowNull: true,
+    },
+    services: {
+      type: DataTypes.JSON,
+      allowNull: true,
+    },
+    bankName: { type: DataTypes.STRING, allowNull: true },
+    bankCode: { type: DataTypes.STRING, allowNull: true },
+    branchCode: { type: DataTypes.STRING, allowNull: true },
+    accountName: { type: DataTypes.STRING, allowNull: true },
+    accountNumber: { type: DataTypes.STRING, allowNull: true },
   },
   {
     sequelize,

@@ -21,6 +21,17 @@ export class NotificationsController {
     }
   }
 
+  static async getUnreadCount(req: AuthRequest, res: Response) {
+    try {
+      const count = await Notification.count({
+        where: { userId: req.user!.id, readAt: null },
+      });
+      res.json({ unreadCount: count });
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
   static async markAllRead(req: AuthRequest, res: Response) {
     try {
       await Notification.update(
