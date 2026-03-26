@@ -9,11 +9,13 @@ import EventStepper from '../../components/ui/EventStepper';
 import { Avatar } from '../../components/ui/Avatar';
 import { StatusBadge } from '../../components/ui/StatusBadge';
 import { fmtLKR } from '../../utils/dateFormat';
+<></>
 
 function BudgetBar({ spent, total }: { spent: number, total: number }) {
   const pct = Math.min(Math.round((spent / (total || 1)) * 100), 100);
   const isOver = spent > total && total > 0;
-  
+ <></> 
+
   return (
     <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all">
       <div className="flex justify-between items-end mb-4">
@@ -39,18 +41,18 @@ function BudgetBar({ spent, total }: { spent: number, total: number }) {
     </div>
   );
 }
-
+<></>
 function PaymentTimeline({ event }: { event: EventDetail }) {
   const advancePaid = event.eventVendors.every(ev => ev.status !== 'APPROVED' || ev.advancePaid > 0);
   const executionDone = event.eventVendors.length > 0 && event.eventVendors.every(ev => ev.tasks.length > 0 && ev.tasks.every(t => t.status === 'COMPLETED'));
   const fullyPaid = event.status === 'FULLY_PAID' || event.status === 'COMPLETED';
-
+<></>
   const steps = [
     { label: 'Booking Advance', status: advancePaid ? 'COMPLETED' : 'IN_PROGRESS', desc: '50% secured for squad' },
     { label: 'Tactical Execution', status: executionDone ? 'COMPLETED' : advancePaid ? 'IN_PROGRESS' : 'PENDING', desc: 'Milestones & delivery' },
     { label: 'Final Settlement', status: fullyPaid ? 'COMPLETED' : executionDone ? 'IN_PROGRESS' : 'PENDING', desc: 'Project closure balance' }
   ];
-
+<></>
   return (
     <div className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
       <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-8 flex items-center gap-2">
@@ -76,11 +78,11 @@ function PaymentTimeline({ event }: { event: EventDetail }) {
     </div>
   );
 }
-
+<></>
 type EventStatus = 'PLANNING' | 'VENDORS_PENDING' | 'PAYMENT_PENDING' | 'ONGOING' | 'EVENT_SOON' | 'COMPLETED' | 'PAYMENT_OVERDUE' | 'FULLY_PAID';
 
 type TaskStatus = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
-
+//
 interface Task {
   id: string;
   title: string;
@@ -89,7 +91,7 @@ interface Task {
   progress: number;
   notes?: string;
 }
-
+//
 interface EventVendorDetail {
   id: string;
   status: string;
@@ -104,7 +106,7 @@ interface EventVendorDetail {
     owner?: { name: string; avatarUrl?: string };
   };
 }
-
+//
 interface EventDetail {
   id: string;
   name: string;
@@ -115,13 +117,13 @@ interface EventDetail {
   notes?: string;
   eventVendors: EventVendorDetail[];
 }
-
+//
 const TASK_STATUS_ICONS: Record<TaskStatus, ReactNode> = {
   PENDING: <Circle className="w-4 h-4 text-gray-300" />,
   IN_PROGRESS: <Clock className="w-4 h-4 text-amber-500 animate-spin" style={{ animationDuration: '3s' }} />,
   COMPLETED: <CheckCircle className="w-4 h-4 text-emerald-500" />,
 };
-
+//
 export default function EventDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -142,7 +144,7 @@ export default function EventDetailPage() {
 
   useEffect(() => { 
     if (id) fetchEvent(); 
-
+//
     const socket = getSocket();
     if (socket) {
       socket.on('payment:success', fetchEvent);
@@ -151,7 +153,7 @@ export default function EventDetailPage() {
       };
     }
   }, [id]);
-
+//
   const fetchEvent = async () => {
     try {
       const res = await api.get(`/events/${id}`);
@@ -168,7 +170,7 @@ export default function EventDetailPage() {
     } catch (err) { console.error(err); }
     finally { setLoading(false); }
   };
-
+//title
   const handleAddTask = async (eventVendorId: string) => {
     const title = newTaskFormsProxy[eventVendorId]?.trim();
     if (!title) return;
@@ -180,7 +182,7 @@ export default function EventDetailPage() {
     } catch (err) { console.error(err); }
     finally { setAddingTask(null); }
   };
-
+//handleupdate
   const handleUpdateEvent = async () => {
     if (!id || !editForm.name) return;
     setUpdating(true);
