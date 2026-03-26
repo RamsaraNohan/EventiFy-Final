@@ -6,6 +6,7 @@ const router = Router();
 
 router.use(requireAuth);
 
+
 router.get('/', NotificationsController.getNotifications);
 router.get('/unread-count', NotificationsController.getUnreadCount);
 router.post('/mark-all-read', NotificationsController.markAllRead);

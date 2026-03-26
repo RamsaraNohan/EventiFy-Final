@@ -14,6 +14,7 @@ export class AdminController {
       const { role, page = 1, limit = 20 } = req.query;
       const where: any = {};
       if (role) where.role = role;
+      
 
       const users = await User.findAndCountAll({
         where,

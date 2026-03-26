@@ -14,6 +14,7 @@ interface Notification {
   readAt: string | null;
 }
 
+
 const getIconForType = (type: string) => {
   switch (type) {
     case 'NEW_MESSAGE': return <MessageSquare className="w-5 h-5 text-brand-600" />;

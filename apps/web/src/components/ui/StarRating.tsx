@@ -1,4 +1,4 @@
-import { Star, StarHalf } from 'lucide-react';
+import { Start  } from 'lucide-react';
 
 interface StarRatingProps {
   rating: number | null | undefined;

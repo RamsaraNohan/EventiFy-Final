@@ -2,15 +2,13 @@ import { useState, useEffect, type ReactNode } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { format, differenceInDays } from 'date-fns';
-import { ArrowLeft, Building2, CheckCircle, Circle, Clock, MessageSquare, CreditCard, Plus, ChevronDown, Loader, Star, Edit3, Save, X, MapPin, Target, Sparkles, Zap, ArrowRight } from 'lucide-react';
+import { ArrowLeft, Building2, CheckCircle, Circle, Clock, MessageSquare, CreditCard, Plus, ChevronDown, Loader,Star, Edit3, Save, X, MapPin, Target, Sparkles, Zap,ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getSocket } from '../../lib/socket';
 import EventStepper from '../../components/ui/EventStepper';
 import { Avatar } from '../../components/ui/Avatar';
 import { StatusBadge } from '../../components/ui/StatusBadge';
 import { fmtLKR } from '../../utils/dateFormat';
-
-
 
 function BudgetBar({ spent, total }: { spent: number, total: number }) {
   const pct = Math.min(Math.round((spent / (total || 1)) * 100), 100);

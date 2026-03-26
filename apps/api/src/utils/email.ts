@@ -15,6 +15,7 @@ export class EmailService {
       console.warn('SENDGRID_API_KEY not set. Email not sent to SendGrid. Check logs for content.');
       return;
     }
+    
 
     try {
       await sgMail.send({

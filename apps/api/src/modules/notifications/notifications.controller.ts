@@ -13,6 +13,7 @@ export class NotificationsController {
 
       const unreadCount = await Notification.count({
         where: { userId: req.user!.id, readAt: null },
+        
       });
 
       res.json({ notifications, unreadCount });

@@ -14,6 +14,7 @@ const requireAdmin = (req: any, res: any, next: any) => {
 
 router.use(requireAuth, requireAdmin);
 
+
 router.get('/users', AdminController.getUsers);
 router.patch('/users/:id', AdminController.updateUser);
 router.get('/vendors/pending', AdminController.getPendingVendors);
