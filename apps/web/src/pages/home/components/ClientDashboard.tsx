@@ -4,13 +4,13 @@ import { useAuthStore } from '../../../lib/auth';
 import { api } from '../../../lib/api';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-
+//export
 export default function ClientDashboard() {
   const { user } = useAuthStore();
   const navigate = useNavigate();
   const [bookings, setBookings] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-
+//user
   useEffect(() => {
     const fetchBookings = async () => {
       try {
@@ -24,7 +24,7 @@ export default function ClientDashboard() {
     };
     fetchBookings();
   }, []);
-
+<></>
   return (
     <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <div className="glass-panel p-8 relative overflow-hidden">
@@ -50,7 +50,7 @@ export default function ClientDashboard() {
           </div>
         </div>
       </div>
-
+<></>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 glass-panel p-6">
           <div className="flex justify-between items-center mb-6">
@@ -113,7 +113,6 @@ export default function ClientDashboard() {
             )}
           </div>
         </div>
-
         <div className="glass-panel p-6">
           <h2 className="text-xl font-bold text-white mb-6">Saved Vendors</h2>
           <div className="bg-[#0f111a]/50 border border-white/5 rounded-xl p-6 text-center text-slate-400 flex flex-col items-center">
@@ -128,3 +127,4 @@ export default function ClientDashboard() {
     </div>
   );
 }
+//codingend

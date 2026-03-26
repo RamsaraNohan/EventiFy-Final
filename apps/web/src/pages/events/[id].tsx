@@ -3,23 +3,19 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { api } from '../../lib/api';
 import { format, differenceInDays } from 'date-fns';
 import { ArrowLeft, Building2, CheckCircle, Circle, Clock, MessageSquare, CreditCard, Plus, ChevronDown, Loader, Star, Edit3, Save, X, MapPin, Target, Sparkles, Zap, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from ' f padding-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { getSocket } from '../../lib/socket';
 import EventStepper from '../../components/ui/EventStepper';
 import { Avatar } from '../../components/ui/Avatar';
 import { StatusBadge } from '../../components/ui/StatusBadge';
 import { fmtLKR } from '../../utils/dateFormat';
+<></>
 
-/**
- * @abstraction BudgetBar
- * OOP Principle: Encapsulation. 
- * This component encapsulates the logic for budget calculation and progress 
- * visualization, hiding complex math from the parent component.
- */
 function BudgetBar({ spent, total }: { spent: number, total: number }) {
   const pct = Math.min(Math.round((spent / (total || 1)) * 100), 100);
   const isOver = spent > total && total > 0;
-  
+ <></> 
+
   return (
     <div className="bg-white border border-gray-100 rounded-3xl p-6 shadow-sm hover:shadow-md transition-all">
       <div className="flex justify-between items-end mb-4">
@@ -45,23 +41,18 @@ function BudgetBar({ spent, total }: { spent: number, total: number }) {
     </div>
   );
 }
-
-/**
- * @abstraction PaymentTimeline
- * OOP Principle: Abstraction.
- * Translates a complex EventDetail object into a simplified 3-step visualization logic.
- */
+<></>
 function PaymentTimeline({ event }: { event: EventDetail }) {
   const advancePaid = event.eventVendors.every(ev => ev.status !== 'APPROVED' || ev.advancePaid > 0);
   const executionDone = event.eventVendors.length > 0 && event.eventVendors.every(ev => ev.tasks.length > 0 && ev.tasks.every(t => t.status === 'COMPLETED'));
   const fullyPaid = event.status === 'FULLY_PAID' || event.status === 'COMPLETED';
-
+<></>
   const steps = [
     { label: 'Booking Advance', status: advancePaid ? 'COMPLETED' : 'IN_PROGRESS', desc: '50% secured for squad' },
     { label: 'Tactical Execution', status: executionDone ? 'COMPLETED' : advancePaid ? 'IN_PROGRESS' : 'PENDING', desc: 'Milestones & delivery' },
     { label: 'Final Settlement', status: fullyPaid ? 'COMPLETED' : executionDone ? 'IN_PROGRESS' : 'PENDING', desc: 'Project closure balance' }
   ];
-
+<></>
   return (
     <div className="bg-white border border-gray-100 rounded-[2.5rem] p-8 shadow-sm">
       <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-8 flex items-center gap-2">
@@ -87,16 +78,11 @@ function PaymentTimeline({ event }: { event: EventDetail }) {
     </div>
   );
 }
-
-/**
- * @interfaces Data Models
- * OOP Principle: Composition/Typing.
- * Defines the structure (schema) of the objects used throughout the page.
- */
+<></>
 type EventStatus = 'PLANNING' | 'VENDORS_PENDING' | 'PAYMENT_PENDING' | 'ONGOING' | 'EVENT_SOON' | 'COMPLETED' | 'PAYMENT_OVERDUE' | 'FULLY_PAID';
 
 type TaskStatus = 'PENDING' | 'IN_PROGRESS' | 'COMPLETED';
-
+//
 interface Task {
   id: string;
   title: string;
@@ -105,7 +91,7 @@ interface Task {
   progress: number;
   notes?: string;
 }
-
+//
 interface EventVendorDetail {
   id: string;
   status: string;
@@ -120,7 +106,7 @@ interface EventVendorDetail {
     owner?: { name: string; avatarUrl?: string };
   };
 }
-
+//
 interface EventDetail {
   id: string;
   name: string;
@@ -131,39 +117,34 @@ interface EventDetail {
   notes?: string;
   eventVendors: EventVendorDetail[];
 }
-
+//
 const TASK_STATUS_ICONS: Record<TaskStatus, ReactNode> = {
   PENDING: <Circle className="w-4 h-4 text-gray-300" />,
   IN_PROGRESS: <Clock className="w-4 h-4 text-amber-500 animate-spin" style={{ animationDuration: '3s' }} />,
   COMPLETED: <CheckCircle className="w-4 h-4 text-emerald-500" />,
 };
-
-/**
- * @class-like EventDetailPage
- * OOP Principle: Composition & State Management.
- * Manages the lifecycle and internal state transitions of the Event object.
- */
+//
 export default function EventDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
-  // Encapsulated State: Internal data management of the component instance
   const [event, setEvent] = useState<EventDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [expandedVendors, setExpandedVendors] = useState<Record<string, boolean>>({});
+  const [newTaskForms, setOriginalNewTaskForms] = useState<Record<string, string>>({}); // Renamed to avoid confusion with internal usage if any
   const [newTaskFormsProxy, setNewTaskForms] = useState<Record<string, string>>({}); 
   const [addingTask, setAddingTask] = useState<string | null>(null);
   const [reviewForms, setReviewForms] = useState<Record<string, { rating: number, comment: string }>>({});
   const [submittingReview, setSubmittingReview] = useState<string | null>(null);
   const [reviewedVendors, setReviewedVendors] = useState<Record<string, boolean | 'success'>>({});
 
+  // Editing state
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState({ name: '', date: '', location: '', budget: 0 });
   const [updating, setUpdating] = useState(false);
 
   useEffect(() => { 
     if (id) fetchEvent(); 
-
+//
     const socket = getSocket();
     if (socket) {
       socket.on('payment:success', fetchEvent);
@@ -172,11 +153,7 @@ export default function EventDetailPage() {
       };
     }
   }, [id]);
-
-  /**
-   * @method fetchEvent
-   * Logic for data retrieval, mapping a database record to the local interface model.
-   */
+//
   const fetchEvent = async () => {
     try {
       const res = await api.get(`/events/${id}`);
@@ -193,11 +170,7 @@ export default function EventDetailPage() {
     } catch (err) { console.error(err); }
     finally { setLoading(false); }
   };
-
-  /**
-   * @method handleAddTask
-   * OOP: Method acting on a specific EventVendor instance.
-   */
+//title
   const handleAddTask = async (eventVendorId: string) => {
     const title = newTaskFormsProxy[eventVendorId]?.trim();
     if (!title) return;
@@ -209,11 +182,7 @@ export default function EventDetailPage() {
     } catch (err) { console.error(err); }
     finally { setAddingTask(null); }
   };
-
-  /**
-   * @method handleUpdateEvent
-   * OOP Principle: Data Mutation. Updates the internal state of the Event.
-   */
+//handleupdate
   const handleUpdateEvent = async () => {
     if (!id || !editForm.name) return;
     setUpdating(true);
@@ -225,10 +194,6 @@ export default function EventDetailPage() {
     finally { setUpdating(false); }
   };
 
-  /**
-   * @method handleSubmitReview
-   * Handles interaction between User (Client) and Vendor objects.
-   */
   const handleSubmitReview = async (vendorId: string) => {
     const form = reviewForms[vendorId];
     if (!form || !form.rating) return;
@@ -241,6 +206,7 @@ export default function EventDetailPage() {
         comment: form.comment || ''
       });
       
+      // Animation Trigger
       setReviewedVendors(prev => ({ ...prev, [vendorId]: 'success' } as any));
       
       setTimeout(() => {
@@ -270,7 +236,6 @@ export default function EventDetailPage() {
   );
   if (!event) return <div className="text-center text-gray-400 py-20 font-black uppercase tracking-widest">Event not found</div>;
 
-  // Derived Properties: Calculated values based on the state of the objects
   const daysLeft = differenceInDays(new Date(event.date), new Date());
   const allTasks = event.eventVendors.flatMap(ev => ev.tasks);
   const completedTasks = allTasks.filter(t => t.status === 'COMPLETED').length;
@@ -280,7 +245,7 @@ export default function EventDetailPage() {
   return (
     <div className="max-w-7xl mx-auto py-8 px-6 space-y-10 animate-in fade-in duration-700">
       
-      {/* View: User Interface Layer */}
+      {/* NAVIGATION & STATUS */}
       <div className="flex items-center justify-between bg-white border border-gray-100 p-6 rounded-[2rem] shadow-sm">
         <button onClick={() => navigate('/events')} className="flex items-center gap-3 text-gray-400 hover:text-brand-600 transition-all text-xs font-black uppercase tracking-widest group">
            <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
@@ -298,6 +263,7 @@ export default function EventDetailPage() {
         </div>
       </div>
 
+      {/* HERO PANEL */}
       <div className="bg-white border border-gray-100 rounded-[3rem] p-10 shadow-sm relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-80 h-80 bg-brand-50 rounded-full blur-[120px] -z-10 transition-transform duration-1000 group-hover:scale-110" />
         
@@ -385,11 +351,11 @@ export default function EventDetailPage() {
 
             <div className="bg-white border border-gray-100 rounded-[2rem] p-6 shadow-sm">
                 <div className="flex justify-between items-end mb-4">
-                    <div className="flex items-center gap-2">
-                       <Zap size={16} className="text-amber-500" />
-                       <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Velocity</span>
-                    </div>
-                    <span className="text-lg font-black text-gray-900">{totalProgress}%</span>
+                   <div className="flex items-center gap-2">
+                      <Zap size={16} className="text-amber-500" />
+                      <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Velocity</span>
+                   </div>
+                   <span className="text-lg font-black text-gray-900">{totalProgress}%</span>
                 </div>
                 <div className="w-full bg-gray-100 rounded-full h-2 overflow-hidden border border-white">
                    <motion.div 
@@ -404,8 +370,10 @@ export default function EventDetailPage() {
         </div>
       </div>
 
+      {/* CORE CONTENT SEGMENTS */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-10">
         
+        {/* LEFTSIDE INFO */}
         <div className="lg:col-span-1 space-y-6">
            <div className="bg-white border border-gray-100 rounded-[2.5rem] p-8">
               <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-8 flex items-center gap-2">
@@ -425,6 +393,7 @@ export default function EventDetailPage() {
            </div>
         </div>
 
+        {/* RIGHTSIDE VENDORS & TASKS */}
         <div className="lg:col-span-3 space-y-8">
           <div className="flex items-center justify-between">
             <h2 className="text-3xl font-black text-gray-900 uppercase tracking-tight">Assigned Squad</h2>
@@ -579,6 +548,7 @@ export default function EventDetailPage() {
         </div>
       </div>
 
+      {/* POST-EVENT REVIEW BLOCK - Redesigned with smooth animations */}
       {event.status === 'COMPLETED' && event.eventVendors.length > 0 && (
         <div className="space-y-10 mt-20 pt-20 border-t border-gray-100">
           <div className="text-center max-w-2xl mx-auto">

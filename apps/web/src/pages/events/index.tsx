@@ -6,11 +6,9 @@ import { format } from 'date-fns';
 import { getSocket } from '../../lib/socket';
 import EventStepper from '../../components/ui/EventStepper';
 import { StatusBadge } from '../../components/ui/StatusBadge';
-
-
-
+//events
 type EventStatus = 'PLANNING' | 'VENDORS_PENDING' | 'PAYMENT_PENDING' | 'ONGOING' | 'EVENT_SOON' | 'COMPLETED' | 'PAYMENT_OVERDUE' | 'FULLY_PAID';
-
+//interface
 interface EventItem {
   id: string;
   name: string;
@@ -21,7 +19,7 @@ interface EventItem {
   daysLeft: number;
   eventVendors?: any[];
 }
-
+<></>
 interface CreateEventForm { name: string; date: string; location: string; budget: string; }
 
 function CountdownBadge({ eventDate }: { eventDate: string | Date }) {
@@ -57,7 +55,7 @@ function CountdownBadge({ eventDate }: { eventDate: string | Date }) {
     </span>
   );
 }
-
+//export
 export default function EventsPage() {
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -66,7 +64,7 @@ export default function EventsPage() {
   const [creating, setCreating] = useState(false);
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-
+//effect
   useEffect(() => { 
     const payhereSuccess = searchParams.get('payhere_success');
     if (payhereSuccess === 'true') {
@@ -123,7 +121,7 @@ export default function EventsPage() {
     } catch (err) { console.error(err); }
     finally { setCreating(false); }
   };
-
+//return
   return (
     <div className="max-w-6xl mx-auto py-6 px-4 space-y-8 animate-in fade-in duration-500">
       <div className="flex justify-between items-end">

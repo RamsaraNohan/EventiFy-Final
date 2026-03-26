@@ -8,14 +8,14 @@ import { ConversationPreview } from '../../components/ui/ConversationPreview';
 import { format, differenceInDays } from 'date-fns';
 import { Calendar as CalendarIcon, MessageSquare, Plus, ArrowRight, Sparkles, TrendingUp, Target, Zap, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
+//export
 export default function Dashboard() {
   const { user } = useAuthStore();
   const navigate = useNavigate();
   const [events, setEvents] = useState<any[]>([]);
   const [conversations, setConversations] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-
+<></>
   useEffect(() => {
     const loadData = async () => {
       try {
@@ -41,7 +41,7 @@ export default function Dashboard() {
 
     loadData();
   }, []);
-
+//const
   const nextEvent = events
     .filter(e => new Date(e.date) >= new Date())
     .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())[0];
@@ -59,7 +59,7 @@ export default function Dashboard() {
     const tasks = ev.eventVendors?.flatMap((evv: any) => evv.tasks || []) || [];
     return acc + tasks.length;
   }, 0);
-
+//loading
   if (loading) return (
     <div className="max-w-7xl mx-auto py-8 px-6 space-y-8 animate-pulse">
        <div className="h-32 bg-gray-100 rounded-[2.5rem]" />
@@ -68,10 +68,10 @@ export default function Dashboard() {
        </div>
     </div>
   );
-
+<></>
   return (
     <div className="max-w-7xl mx-auto py-8 px-6 space-y-10 animate-in fade-in duration-700">
-      
+     <></> 
       {/* HEADER SECTION - Premium Gradient Look */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 bg-white border border-gray-100 p-10 rounded-[3rem] shadow-sm relative overflow-hidden group">
         <div className="absolute top-0 right-0 w-64 h-64 bg-brand-50 rounded-full blur-[100px] -z-10 group-hover:scale-110 transition-transform duration-1000" />
@@ -91,7 +91,7 @@ export default function Dashboard() {
               : "System Ready: No upcoming events detected."}
           </p>
         </div>
-        
+        <></>
         <div className="flex items-center gap-4 relative z-10">
           {nextEvent && (
              <div className="bg-brand-50 px-5 py-2.5 rounded-2xl border border-brand-100 flex items-center gap-3 shadow-sm">
@@ -187,3 +187,4 @@ export default function Dashboard() {
     </div>
   );
 }
+//codingend

@@ -11,8 +11,6 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(true);
   const type = searchParams.get('type') || 'booking';
 
-  
-
   useEffect(() => {
     const endpoint = type === 'event-vendor' 
       ? `/payments/checkout/event-vendor/${id}`
@@ -29,14 +27,14 @@ export default function CheckoutPage() {
       });
   }, [id, type]);
 
-
+//loding
   if (loading) return (
     <div className="p-20 text-center text-primary-400 flex flex-col items-center justify-center">
       <Loader2 className="w-10 h-10 animate-spin mb-4" />
       Preparing Secure Checkout...
     </div>
   );
-
+//payment
   if (!paymentData) return (
     <div className="p-20 text-center space-y-4">
       <div className="text-accent-400 text-xl font-bold">Unable to initialize checkout session.</div>
@@ -107,6 +105,8 @@ export default function CheckoutPage() {
             </p>
           </div>
         </div>
+        <></>
+        <></>
 
         {/* INTERACTION PANEL */}
         <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm flex flex-col items-center justify-center text-center">
@@ -120,12 +120,14 @@ export default function CheckoutPage() {
               Click below to proceed to our secure bank-grade payment interface.
             </p>
           </div>
+          <></>
+          <></>
 
           <form action="https://sandbox.payhere.lk/pay/checkout" method="post" className="w-full">
             <input type="hidden" name="merchant_id" value={paymentData.merchant_id} />
             <input type="hidden" name="return_url" value={`${window.location.origin}/events?payhere_success=true&order_id=${paymentData.order_id}&merchant_id=${paymentData.merchant_id}&amount=${paymentData.amount}&currency=${paymentData.currency}`} />
             <input type="hidden" name="cancel_url" value={`${window.location.origin}/events?payment_cancel=true`} />
-            <input type="hidden" name="notify_url" value={`http://host.docker.internal:8000/payments/notify`} /> 
+            <input type="hidden" name="notify_url" value={`http://host.docker.internal:5000/payments/notify`} /> 
             <input type="hidden" name="order_id" value={paymentData.order_id} />
             <input type="hidden" name="items" value={paymentData.items} />
             <input type="hidden" name="currency" value={paymentData.currency} />
@@ -148,3 +150,6 @@ export default function CheckoutPage() {
     </div>
   );
 }
+//filr enf
+<></>
+
